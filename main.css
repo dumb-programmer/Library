@@ -1,3 +1,8 @@
+body {
+    background-color: #fee2f8;
+    background-image: linear-gradient(315deg, #fee2f8 0%, #dcf8ef 74%);
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -7,7 +12,8 @@
 th {
     padding: 10px;
     border-bottom: 2px solid grey;
-    background-color: skyblue;
+    background-color: #BCFFB9;
+    color: black;
 }
 
 td {
@@ -15,6 +21,10 @@ td {
     border-right: 2px solid black;
     border-left: 2px solid black;
     border-bottom: 2px solid black;
+}
+
+tr:nth-child(even) {
+    background-color: #F5FDB0;
 }
 
 .btnAndFormContainer {
@@ -47,14 +57,21 @@ td {
 }
 
 form {
-    background-color: cornflowerblue;
+    background-color: #BCFFB9;
     width: 300px;
     position: absolute;
-    top: 57vh;
+    top: 25rem;
     display: none;
 }
 
 #ok-btn {
-    background-color: rgb(250, 119, 119);
-    background-color: rgb(238, 0, 0);
+    background-color: #F7E6AD;
+    width: 100px;
+    border: none;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#ok-btn:hover {
+    cursor: pointer;
 }

@@ -9,20 +9,16 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
-
-    // this.info = function () {
-    //     return this.read ? `${this.title} by ${this.author}, ${pages} pages, have read it` : `${this.title} by ${this.author}, ${pages} pages, not read yet`;
-    // };
 }
 
 function addBookToLibrary() {
     let title = document.querySelector('#title');
-    let author = document.querySelector('#author');;
-    let pages = document.querySelector('#pages');;
-    let read = document.querySelector('#read');;
+    let author = document.querySelector('#author');
+    let pages = document.querySelector('#pages');
+    let read = document.querySelector('#read');
     let book = new Book(title.value, author.value, pages.value, read.value);
     myLibrary.push(book);
-    insertBookInTable(myLibrary[myLibrary.length - 1])
+    insertBookInTable(myLibrary[myLibrary.length - 1]);
 }
 
 function displayBooks() {
