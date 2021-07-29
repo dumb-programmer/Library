@@ -1,14 +1,15 @@
 let myLibrary = [
-    new Book("JavaScript The Good Parts", "Douglas Croford", 170, false),
-    new Book("Atomic Habits", "James Clear", 290, true),
-    new Book("Elon Musk", "XXXX", 390, false)
+    // new Book("JavaScript The Good Parts", "Douglas Croford", 170, false),
+    // new Book("Atomic Habits", "James Clear", 290, true),
+    // new Book("Elon Musk", "XXXX", 390, false)
 ];
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, remove) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read
+    this.remove = remove
 }
 
 function addBookToLibrary() {
@@ -16,7 +17,21 @@ function addBookToLibrary() {
     let author = document.querySelector('#author');
     let pages = document.querySelector('#pages');
     let read = document.querySelector('#read');
-    let book = new Book(title.value, author.value, pages.value, read.value);
+    let removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    let index = myLibrary.length;
+    removeBtn.setAttribute('data-book-index', index);
+    removeBtn.setAttribute('class', 'removeBtn');
+    console.log(removeBtn);
+    removeBtn.addEventListener('click', (event) => {
+        let index = removeBtn.getAttribute('data-book-index');
+        let row = event.target.parentElement.parentElement;
+        let tbody = document.querySelector('tbody')
+        tbody.removeChild(row)
+        myLibrary.splice(index, 1);
+        console.log(myLibrary);
+    })
+    let book = new Book(title.value, author.value, pages.value, read.value, removeBtn);
     myLibrary.push(book);
     insertBookInTable(myLibrary[myLibrary.length - 1]);
 }
@@ -34,7 +49,13 @@ function insertBookInTable(bookObject) {
     tbody.append(tr);
     for (let prop in bookObject) {
         const td = document.createElement('td');
-        td.textContent = bookObject[prop];
+        if (prop === 'remove') {
+            let button = bookObject[prop];
+            td.append(button);
+        }
+        else {
+            td.textContent = bookObject[prop];
+        }
         tr.append(td);
     }
 }
@@ -48,42 +69,35 @@ appendFormBtn.addEventListener('click', () => {
         form.style.display = "none";
         appendFormBtn.style.backgroundColor = "rgba(55, 204, 9, 0.933)";
         appendFormBtn.textContent = "+";
-        appendFormBtn.style = hoverStyle;
     }
     else {
         form.style.display = "block";
         appendFormBtn.style.backgroundColor = "red";
         appendFormBtn.textContent = "x";
-        appendFormBtn.style.hover.backgroundImage = "linear-gradient(#ff6a8a, #ff0037)";
     }
 })
 
-appendFormBtn.addEventListener('mouseenter',() => {
-    if(appendFormBtn.textContent === "x"){
+appendFormBtn.addEventListener('mouseenter', () => {
+    if (appendFormBtn.textContent === "x") {
         appendFormBtn.style.backgroundImage = "linear-gradient(#ff6a8a, #ff0037)";
     }
-    else{
+    else {
         appendFormBtn.style.backgroundImage = "linear-gradient(#84fc03, #03fc14)";
     }
 })
 
 appendFormBtn.addEventListener('mouseleave', () => {
     appendFormBtn.style.backgroundImage = "none";
-    if(appendFormBtn.textContent === "x"){
+    if (appendFormBtn.textContent === "x") {
         appendFormBtn.style.backgroundColor = "red";
     }
-    else{
+    else {
         appendFormBtn.style.backgroundColor = "rgba(55, 204, 9, 0.933)";
     }
 })
 
 okBtn.addEventListener('click', () => {
-    const title = document.querySelector("#title");
-    const author = document.querySelector("#author");
-    const pages = document.querySelector("#pages");
-    const read = document.querySelector("#read");
-    const book = new Book(title.value, author.value, pages.value, read.value);
-    insertBookInTable(book);
+    addBookToLibrary();
 })
 
 displayBooks()
