@@ -17,12 +17,12 @@ function addBookToLibrary() {
     let author = document.querySelector('#author');
     let pages = document.querySelector('#pages');
     let read = document.querySelector('#read');
+    read.value = read.checked ? '✅' : '❌';
     let removeBtn = document.createElement("button");
     removeBtn.textContent = "Remove";
     let index = myLibrary.length;
     removeBtn.setAttribute('data-book-index', index);
     removeBtn.setAttribute('class', 'removeBtn');
-    console.log(removeBtn);
     removeBtn.addEventListener('click', (event) => {
         let index = removeBtn.getAttribute('data-book-index');
         let row = event.target.parentElement.parentElement;

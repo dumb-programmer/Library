@@ -37,7 +37,7 @@ tr:nth-child(even) {
 }
 
 .btnAndFormContainer {
-    height: 100vh;
+    height: 263px;
     width: 300px;
     margin-right: 2rem;
     position: absolute;
@@ -69,7 +69,7 @@ form {
     background-color: #BCFFB9;
     width: 300px;
     position: absolute;
-    top: 25rem;
+    /* top: 25rem; */
     display: none;
 }
 
