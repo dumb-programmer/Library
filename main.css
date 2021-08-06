@@ -27,16 +27,16 @@ tr:nth-child(even) {
     background-color: #F5FDB0;
 }
 
-.removeBtn {
+.remove-btn {
     background-color: red;
     border: none;
 }
 
-.removeBtn:hover{
+.remove-btn:hover{
     cursor: pointer;
 }
 
-.btnAndFormContainer {
+.btn-and-form-container {
     height: 263px;
     width: 300px;
     margin-right: 2rem;
@@ -69,7 +69,7 @@ form {
     background-color: #BCFFB9;
     width: 300px;
     position: absolute;
-    /* top: 25rem; */
+    top: 85px;
     display: none;
 }
 
@@ -82,5 +82,9 @@ form {
 }
 
 #ok-btn:hover {
+    cursor: pointer;
+}
+
+.read{
     cursor: pointer;
 }

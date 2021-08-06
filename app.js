@@ -12,6 +12,10 @@ function Book(title, author, pages, read, remove) {
     this.remove = remove
 }
 
+Book.prototype.changeReadStatus = function(newStatus){
+    this.read = newStatus
+}
+
 function addBookToLibrary() {
     let title = document.querySelector('#title');
     let author = document.querySelector('#author');
@@ -22,14 +26,13 @@ function addBookToLibrary() {
     removeBtn.textContent = "Remove";
     let index = myLibrary.length;
     removeBtn.setAttribute('data-book-index', index);
-    removeBtn.setAttribute('class', 'removeBtn');
+    removeBtn.setAttribute('class', 'remove-btn');
     removeBtn.addEventListener('click', (event) => {
         let index = removeBtn.getAttribute('data-book-index');
         let row = event.target.parentElement.parentElement;
         let tbody = document.querySelector('tbody')
         tbody.removeChild(row)
         myLibrary.splice(index, 1);
-        console.log(myLibrary);
     })
     let book = new Book(title.value, author.value, pages.value, read.value, removeBtn);
     myLibrary.push(book);
@@ -48,15 +51,31 @@ function insertBookInTable(bookObject) {
     const tr = document.createElement('tr');
     tbody.append(tr);
     for (let prop in bookObject) {
-        const td = document.createElement('td');
-        if (prop === 'remove') {
-            let button = bookObject[prop];
-            td.append(button);
+        if (bookObject.hasOwnProperty(prop)) {
+            const td = document.createElement('td');
+            if (prop === 'remove') {
+                let button = bookObject[prop];
+                td.append(button);
+            }
+            else if (prop === 'read') {
+                td.setAttribute('class', 'read');
+                td.textContent = bookObject[prop];
+                td.setAttribute('data-read-index', myLibrary.length - 1)
+                td.addEventListener('click', () => {
+                    if(td.textContent === '✅'){
+                        td.textContent = '❌';
+                        bookObject.changeReadStatus('❌');
+                        return;
+                    }
+                    td.textContent = '✅';
+                    bookObject.changeReadStatus('✅');
+                })
+            }
+            else {
+                td.textContent = bookObject[prop];
+            }
+            tr.append(td);
         }
-        else {
-            td.textContent = bookObject[prop];
-        }
-        tr.append(td);
     }
 }
 
