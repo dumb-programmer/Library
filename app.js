@@ -12,7 +12,7 @@ function Book(title, author, pages, read, remove) {
     this.remove = remove
 }
 
-Book.prototype.changeReadStatus = function(newStatus){
+Book.prototype.changeReadStatus = function (newStatus) {
     this.read = newStatus
 }
 
@@ -21,22 +21,26 @@ function addBookToLibrary() {
     let author = document.querySelector('#author');
     let pages = document.querySelector('#pages');
     let read = document.querySelector('#read');
-    read.value = read.checked ? '✅' : '❌';
-    let removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove";
-    let index = myLibrary.length;
-    removeBtn.setAttribute('data-book-index', index);
-    removeBtn.setAttribute('class', 'remove-btn');
-    removeBtn.addEventListener('click', (event) => {
-        let index = removeBtn.getAttribute('data-book-index');
-        let row = event.target.parentElement.parentElement;
-        let tbody = document.querySelector('tbody')
-        tbody.removeChild(row)
-        myLibrary.splice(index, 1);
-    })
-    let book = new Book(title.value, author.value, pages.value, read.value, removeBtn);
-    myLibrary.push(book);
-    insertBookInTable(myLibrary[myLibrary.length - 1]);
+    
+    if (title.value && author.value && pages.value && read.value) {
+
+        read.value = read.checked ? '✅' : '❌';
+        let removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        let index = myLibrary.length;
+        removeBtn.setAttribute('data-book-index', index);
+        removeBtn.setAttribute('class', 'remove-btn');
+        removeBtn.addEventListener('click', (event) => {
+            let index = removeBtn.getAttribute('data-book-index');
+            let row = event.target.parentElement.parentElement;
+            let tbody = document.querySelector('tbody')
+            tbody.removeChild(row)
+            myLibrary.splice(index, 1);
+        })
+        let book = new Book(title.value, author.value, pages.value, read.value, removeBtn);
+        myLibrary.push(book);
+        insertBookInTable(myLibrary[myLibrary.length - 1]);
+    }
 }
 
 function displayBooks() {
@@ -62,7 +66,7 @@ function insertBookInTable(bookObject) {
                 td.textContent = bookObject[prop];
                 td.setAttribute('data-read-index', myLibrary.length - 1)
                 td.addEventListener('click', () => {
-                    if(td.textContent === '✅'){
+                    if (td.textContent === '✅') {
                         td.textContent = '❌';
                         bookObject.changeReadStatus('❌');
                         return;
