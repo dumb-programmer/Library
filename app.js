@@ -4,16 +4,19 @@ let myLibrary = [
     // new Book("Elon Musk", "XXXX", 390, false)
 ];
 
-function Book(title, author, pages, read, remove) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.remove = remove
-}
+class Book {
+    constructor(title, author, pages, read, remove) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+        this.remove = remove
+    }
 
-Book.prototype.changeReadStatus = function (newStatus) {
-    this.read = newStatus
+    changeReadStatus(newStatus) {
+        this.read = newStatus
+    }
+
 }
 
 function addBookToLibrary() {
